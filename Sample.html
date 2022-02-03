@@ -1,0 +1,33 @@
+<h1>Please do not refresh the page.</h1>
+<button id="rzp-button1" style="display:none;">Pay</button>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_YXPDTZ47zWF8KX",
+    "amount": "10000",
+    "currency": "INR",
+    "name": "vivek Kushwaha",
+    "description": "",
+    //"order_id": "213424",
+    "callback_url": "https://paysprint.in/service-api/api/v1/service/pg/pg/razorcallback/213424",
+    "prefill": {
+"name": "vivek Kushwaha",
+        "email": "nitesh@rnfiservices.com",
+        "contact":"8470000013"
+    },
+    "notes": {
+        "orderid": "213424"
+    },
+    "theme": {
+        "color": "#f91e2f"
+    }
+};
+window.onload = function() {
+    document.getElementById('rzp-button1').click();
+}
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
