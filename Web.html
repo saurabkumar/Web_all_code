@@ -1,0 +1,95 @@
+  <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Document</title>
+        <style>
+.center {
+  margin: 0;
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+</style>
+  </head>
+  <body>       
+  <div class="center">
+    <button id="rzp-button">Pay</button>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</div>
+<script>
+var options = {
+    "key": "rzp_test_siY3oWUoOfReQu", // Enter the Key ID generated from the Dashboard
+    "amount": "600000", // Amount is in currency. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "retry": false,
+    "currency": "INR",
+     //"checkout_config":"",
+    //"order_id":"order_IWtgDvj888952
+
+//     "theme": {
+// "hide_topbar": "true" //To hide the back button
+// },
+    
+    //"personalization":false,
+    // "method":{
+    //  "netbanking":"0",
+    //    "card":"0",
+    //    "wallet":"0",
+    //      "upi":"",
+    //  "emi":"0"
+    //   },
+// "config": {
+//     "display": {
+//       "blocks": {
+//         "emi": {
+//           "name": "emi",
+//           "instruments": [{
+//             "method": "cardless_emi",
+//             "providers": ["bajaj"],
+//           }]
+//         }
+//       },
+//       "sequence": ["block.emi"],
+//       "preferences": {
+//         "show_default_blocks": 1
+//       }
+//     }
+//   },
+
+ //"name": "Acme Corp",
+    //"description": "Test Transaction",
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+
+    },
+    //  "hidden":{
+    // "email":true,
+    // "contact":true,
+    // },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.erroxr.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+document.getElementById('rzp-button').onclick = function(e) {
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
